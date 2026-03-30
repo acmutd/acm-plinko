@@ -1,8 +1,8 @@
 # ACM Plinko
 
-A point-based Plinko game built for ACM Community events. Drop a ball, watch it bounce, and see where it lands — each bin awards (or deducts) points from your running total.
+A point-based Plinko game built for ACM Community events. Drop a ball, watch it bounce, and see where it lands. Each bin awards (or deducts) points from your running total.
 
-<!-- TODO: Add screenshot -->
+<img width="1466" height="749" alt="Screenshot 2026-03-30 at 6 33 05 PM" src="https://github.com/user-attachments/assets/a29a480a-5762-467c-afb1-dc6dc1b3b049" />
 
 ## Features
 
@@ -15,7 +15,7 @@ A point-based Plinko game built for ACM Community events. Drop a ball, watch it 
 
 ## Credits
 
-This project is a fork of [AnsonH's plinko-game](https://github.com/AnsonH/plinko-game), originally built as a free-to-play web Plinko game inspired by Stake.com. Huge thanks to Anson for the physics engine setup and overall architecture — we just reskinned it for ACM.
+This project is a fork of [AnsonH's plinko-game](https://github.com/AnsonH/plinko-game), originally built as a free-to-play web Plinko game inspired by Stake.com. Huge thanks to Anson for the physics engine setup and overall architecture. I just reskinned it for ACM.
 
 ## Development
 
