@@ -16,11 +16,13 @@ export const betAmount = writable<number>(1);
 
 export const betAmountOfExistingBalls = writable<BetAmountOfExistingBalls>({});
 
-export const rowCount = writable<RowCount>(16);
+export const rowCount = writable<RowCount>(8);
 
 export const riskLevel = writable<RiskLevel>(RiskLevel.MEDIUM);
 
 export const winRecords = writable<WinRecord[]>([]);
+
+export const runningTotal = writable<number>(0);
 
 /**
  * History of total profits. Should be updated whenever a new win record is pushed

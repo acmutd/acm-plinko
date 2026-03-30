@@ -63,7 +63,7 @@
           style:background-color={binColorsByRowCount[$rowCount].background[binIndex]}
           style:--shadow-color={binColorsByRowCount[$rowCount].shadow[binIndex]}
         >
-          {payout}{payout < 100 ? '×' : ''}
+          {payout}
         </div>
       {/each}
     </div>

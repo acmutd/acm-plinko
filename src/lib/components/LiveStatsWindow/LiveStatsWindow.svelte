@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { totalProfitHistory, winRecords } from '$lib/stores/game';
+  import { runningTotal, totalProfitHistory, winRecords } from '$lib/stores/game';
   import { isLiveStatsOpen } from '$lib/stores/layout';
   import { flyAndScale } from '$lib/utils/transitions';
   import { Tooltip } from 'bits-ui';
@@ -12,6 +12,7 @@
   function resetLiveStats() {
     $winRecords = [];
     $totalProfitHistory = [0];
+    $runningTotal = 0;
   }
 </script>
 
@@ -21,7 +22,7 @@
     class="fixed right-8 bottom-8 w-[20rem]"
   >
     {#snippet title()}
-      <ChartLine weight="bold" class="text-xl text-slate-300" />
+      <ChartLine weight="bold" class="text-xl text-acm-muted" />
       <p class="text-sm font-medium text-white">Live Stats</p>
     {/snippet}
 
@@ -30,7 +31,7 @@
         <Tooltip.Root>
           <Tooltip.Trigger
             onclick={resetLiveStats}
-            class="bg-slate-800 px-5 py-3 text-slate-300 transition hover:bg-slate-700 active:bg-slate-600"
+            class="bg-acm-bg px-5 py-3 text-acm-muted transition hover:bg-[hsl(0_0%_14.9%)] active:bg-[hsl(0_0%_20%)]"
           >
             <ArrowClockwise weight="bold" />
           </Tooltip.Trigger>

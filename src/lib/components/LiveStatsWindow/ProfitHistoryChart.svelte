@@ -1,6 +1,5 @@
 <script lang="ts">
   import { totalProfitHistory } from '$lib/stores/game';
-  import { formatCurrency } from '$lib/utils/numbers';
   import Chart from 'chart.js/auto';
   import type { Action } from 'svelte/action';
   import { twMerge } from 'tailwind-merge';
@@ -12,7 +11,7 @@
   const WIN_COLOR_FILL = 'rgba(74, 222, 128, 0.3)';
   const LOSS_COLOR = 'rgb(248, 113, 113)'; // red-400
   const LOSS_COLOR_FILL = 'rgba(248, 113, 113, 0.3)'; // red-400
-  const X_AXIS_COLOR = '#1e293b'; // slate-800
+  const X_AXIS_COLOR = 'hsl(0, 0%, 14.9%)'; // acm-border
   const POINT_HOVER_COLOR = '#fff';
 
   const initChart: Action<HTMLCanvasElement, { profitHistory: number[] }> = (
@@ -104,15 +103,15 @@
   };
 </script>
 
-<div class="relative rounded-md bg-slate-900 p-4 text-sm">
-  <p class="font-medium text-slate-400">Profit History</p>
+<div class="relative rounded-md bg-acm-bg p-4 text-sm">
+  <p class="font-medium text-acm-muted">Score History</p>
   <p
     class={twMerge(
       'absolute font-semibold tabular-nums',
       hoveredProfitValue !== null && (hoveredProfitValue >= 0 ? 'text-green-400' : 'text-red-400'),
     )}
   >
-    {hoveredProfitValue !== null ? formatCurrency(hoveredProfitValue) : ''}
+    {hoveredProfitValue !== null ? hoveredProfitValue : ''}
   </p>
   <div class="mt-6 h-[11rem] w-[16rem]">
     <canvas

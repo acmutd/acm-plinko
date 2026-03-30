@@ -1,14 +1,27 @@
 @import 'tailwindcss';
+@import url('/fonts/gilroy/gilroy.css');
 
 @theme {
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+  --font-sans:
+    'Gilroy', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --color-acm-bg: hsl(0 0% 3.9%);
+  --color-acm-card: hsl(0 0% 7%);
+  --color-acm-border: hsl(0 0% 14.9%);
+  --color-acm-muted: hsl(0 0% 63.9%);
 }
 
 @layer base {
-  /* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
+  }
+
+  html {
+    scrollbar-width: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 }

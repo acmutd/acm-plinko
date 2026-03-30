@@ -7,12 +7,18 @@ import {
   balance,
   betAmountOfExistingBalls,
   totalProfitHistory,
+  runningTotal,
 } from '$lib/stores/game';
 import type { RiskLevel, RowCount } from '$lib/types';
 import { getRandomBetween } from '$lib/utils/numbers';
 import Matter, { type IBodyDefinition } from 'matter-js';
 import { get } from 'svelte/store';
 import { v4 as uuidv4 } from 'uuid';
+
+const faceTextures = ['/face1.png', '/face2.png', '/face3.png'];
+
+const dropSound = typeof Audio !== 'undefined' ? new Audio('/drop.mp3') : null;
+const winSound = typeof Audio !== 'undefined' ? new Audio('/win.mp3') : null;
 
 type BallFrictionsByRowCount = {
   friction: NonNullable<IBodyDefinition['friction']>;
@@ -130,7 +136,7 @@ class PlinkoEngine {
       options: {
         width: PlinkoEngine.WIDTH,
         height: PlinkoEngine.HEIGHT,
-        background: '#0f1728',
+        background: '#0a0a0a',
         wireframes: false,
       },
     });
@@ -187,6 +193,9 @@ class PlinkoEngine {
     const ballRadius = this.pinRadius * 2;
     const { friction, frictionAirByRowCount } = PlinkoEngine.ballFrictions;
 
+    const texture = faceTextures[Math.floor(Math.random() * faceTextures.length)];
+    const spriteScale = (ballRadius * 2) / 128;
+
     const ball = Matter.Bodies.circle(
       getRandomBetween(
         this.canvas.width / 2 - ballOffsetRangeX,
@@ -203,14 +212,23 @@ class PlinkoEngine {
           mask: PlinkoEngine.PIN_CATEGORY, // Collide with pins only, but not other balls
         },
         render: {
-          fillStyle: '#ff0000',
+          sprite: {
+            texture,
+            xScale: spriteScale,
+            yScale: spriteScale,
+          },
         },
       },
     );
     Matter.Composite.add(this.engine.world, ball);
 
     betAmountOfExistingBalls.update((value) => ({ ...value, [ball.id]: this.betAmount }));
-    balance.update((balance) => balance - this.betAmount);
+
+    if (dropSound) {
+      const sfx = dropSound.cloneNode() as HTMLAudioElement;
+      sfx.volume = 0.3;
+      sfx.play().catch(() => {});
+    }
   }
 
   /**
@@ -279,6 +297,13 @@ class PlinkoEngine {
         return [...history, lastTotalProfit + profit];
       });
       balance.update((balance) => balance + payoutValue);
+      runningTotal.update((total) => total + multiplier);
+
+      if (multiplier > 0 && winSound) {
+        const sfx = winSound.cloneNode() as HTMLAudioElement;
+        sfx.volume = 0.5;
+        sfx.play().catch(() => {});
+      }
     }
 
     Matter.Composite.remove(this.engine.world, ball);
