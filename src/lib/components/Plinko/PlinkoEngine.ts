@@ -19,6 +19,7 @@ const faceTextures = ['/face1.png', '/face2.png', '/face3.png'];
 
 const dropSound = typeof Audio !== 'undefined' ? new Audio('/drop.mp3') : null;
 const winSound = typeof Audio !== 'undefined' ? new Audio('/win.mp3') : null;
+const loseSound = typeof Audio !== 'undefined' ? new Audio('/loss.mp3') : null;
 
 type BallFrictionsByRowCount = {
   friction: NonNullable<IBodyDefinition['friction']>;
@@ -301,6 +302,10 @@ class PlinkoEngine {
 
       if (multiplier > 0 && winSound) {
         const sfx = winSound.cloneNode() as HTMLAudioElement;
+        sfx.volume = 0.5;
+        sfx.play().catch(() => {});
+      } else if (multiplier < 0 && loseSound) {
+        const sfx = loseSound.cloneNode() as HTMLAudioElement;
         sfx.volume = 0.5;
         sfx.play().catch(() => {});
       }
