@@ -295,7 +295,7 @@ class PlinkoEngine {
       ]);
       totalProfitHistory.update((history) => {
         const lastTotalProfit = history.slice(-1)[0];
-        return [...history, lastTotalProfit + profit];
+        return [...history, lastTotalProfit + multiplier];
       });
       balance.update((balance) => balance + payoutValue);
       runningTotal.update((total) => total + multiplier);
